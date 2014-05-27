@@ -19096,15 +19096,6 @@ BlockItemView = (function(_super) {
 
   BlockItemView.prototype.className = 'block';
 
-  BlockItemView.prototype.events = {
-    'click': 'onClick'
-  };
-
-  BlockItemView.prototype.onClick = function(event) {
-    event.preventDefault();
-    return alert(1);
-  };
-
   return BlockItemView;
 
 })(Backbone.Marionette.ItemView);

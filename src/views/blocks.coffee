@@ -5,12 +5,12 @@ KEY_ENTER = 13
 class BlockItemView extends Backbone.Marionette.ItemView
 	template: "#BlockItem-template"
 	className: 'block'
-	events:
-		'click': 'onClick'
+	# events:
+	# 	'click': 'onClick'
 
-	onClick: (event) ->
-		event.preventDefault()
-		alert(1)
+	# onClick: (event) ->
+	# 	event.preventDefault()
+	# 	alert(1)
 
 	# onRender: ->
 	# 	console.log "One block render"
