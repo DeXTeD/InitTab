@@ -178,21 +178,14 @@
     "id": 29,
     "title": "moment.js",
     "url": "http://momentjs.com/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/jnpRHuE.png",
     "position": 6
-  },
-  {
-    "id": 30,
-    "title": "Cycle2",
-    "url": "http://jquery.malsup.com/cycle2/api/",
-    "thumbnail": "",
-    "position": 7
   },
   {
     "id": 34,
     "title": "WebdesignRepo",
     "url": "http://webdesignrepo.com",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/5MyChPg.png",
     "position": 7
   },
   {
@@ -213,7 +206,7 @@
     "id": 31,
     "title": "ScrollReveal.js",
     "url": "http://scrollrevealjs.org/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/dP1aFwO.png",
     "position": 8
   },
   {
@@ -241,70 +234,70 @@
     "id": 35,
     "title": "Magnific popup",
     "url": "http://dimsemenov.com/plugins/magnific-popup/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/O89vmHt.png",
     "position": 10
   },
   {
     "id": 12,
     "title": "Code 9px",
     "url": "http://code.9px.pl/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/62Cp7LL.png",
     "position": 11
   },
   {
     "id": 36,
     "title": "Sdaptive Backgrounds",
     "url": "http://briangonzalez.github.io/jquery.adaptive-backgrounds.js/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/T7QyOu2.png",
     "position": 11
   },
   {
     "id": 10,
     "title": "Pragmatic Backbone",
     "url": "http://pragmatic-backbone.com",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/gjUKLP6.png",
     "position": 12
   },
   {
     "id": 37,
     "title": "Backstretch",
     "url": "http://srobbin.com/jquery-plugins/backstretch/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/anje607.png",
     "position": 12
   },
   {
     "id": 17,
     "title": "Devdocs",
     "url": "http://devdocs.io/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/H47Xfn9.png",
     "position": 13
   },
   {
     "id": 52,
     "title": "suffick/Picker",
     "url": "https://github.com/suffick/Picker",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/0lb6BD1.png",
     "position": 13
   },
   {
     "id": 22,
     "title": "Caniuse",
     "url": "http://caniuse.com/",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/fdqQH7L.png",
     "position": 14
   },
   {
     "id": 24,
     "title": "Regexr",
     "url": "http://regexr.com",
-    "thumbnail": "",
+    "thumbnail": "http://i.imgur.com/9nWmEK9.png",
     "position": 15
   },
   {
     "id": 25,
     "title": "JS to CoffeeScript",
     "url": "http://js2coffee.org/",
-    "thumbnail": "",
+    "thumbnail": "http://js2coffee.org/images/logo.gif",
     "position": 16
   },
   {
@@ -367,21 +360,14 @@
     "id": 56,
     "title": "Wydział Inżynierii Mechanicznej i Informatyki",
     "url": "http://wimi.pcz.pl/download/plan_niestacjonarny/Plan_zaoczne_lato_13_14_3_kierunek.html#table_15_DETAILED",
-    "thumbnail": "",
+    "thumbnail": "http://www.turniejpck.moszczenica.eu/images/logo%20politechnika.jpg",
     "position": 999
   },
   {
     "id": 57,
-    "title": "Front-end / back-end - Develeoper, Częstochowa, 42-200 - 10020102 - infoPraca.pl",
-    "url": "http://www.infopraca.pl/praca/front-end-back-end-develeoper/czestochowa-42-200/10020102",
-    "thumbnail": "",
-    "position": 999
-  },
-  {
-    "id": 58,
     "title": "Bank Ochrony Środowiska S.A.",
     "url": "https://bosbank24.pl/twojekonto",
-    "thumbnail": "",
+    "thumbnail": "https://bosbank24.pl/html/img/logo_bosbank.gif",
     "position": 999
   }
 ]
