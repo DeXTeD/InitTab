@@ -1,0 +1,13 @@
+[{
+	"name": "Test1",
+	"row": 1,
+	"col": 1,
+	"sizex": 1,
+	"sizey": 1
+},{
+	"name": "Test2",
+	"row": 1,
+	"col": 2,
+	"sizex": 1,
+	"sizey": 1
+}]

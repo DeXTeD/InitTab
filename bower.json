@@ -1,0 +1,26 @@
+{
+  "name": "InitTab",
+  "version": "0.0.0",
+  "authors": [
+    "DeXTeD <dexted.xt@gmail.com>"
+  ],
+  "description": "New tab start page",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone.marionette": "~1.8.6",
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.1",
+    "underscore": "~1.6.0",
+    "grid-list": "~0.1.0",
+    "jqueryui": "~1.10.4",
+    "gridster": "~0.5.1",
+    "string_score": "~0.1.20"
+  }
+}

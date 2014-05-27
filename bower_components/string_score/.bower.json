@@ -1,0 +1,15 @@
+{
+  "name": "string_score",
+  "homepage": "https://github.com/saschagehlich/string_score",
+  "version": "0.1.20",
+  "_release": "0.1.20",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.1.20",
+    "commit": "9a41bd11f49f428d2f643efcc451b64a3d39a66c"
+  },
+  "_source": "git://github.com/saschagehlich/string_score.git",
+  "_target": "~0.1.20",
+  "_originalSource": "string_score",
+  "_direct": true
+}

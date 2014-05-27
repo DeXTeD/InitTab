@@ -1,0 +1,14 @@
+{
+  "name": "grid-list",
+  "homepage": "https://github.com/ubervu/grid",
+  "version": "0.1.0",
+  "_release": "0.1.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.1.0",
+    "commit": "dcd6c244619a8ec54786e61befbd01379752bd37"
+  },
+  "_source": "git://github.com/ubervu/grid.git",
+  "_target": "~0.1.0",
+  "_originalSource": "grid-list"
+}
