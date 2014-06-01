@@ -17,7 +17,11 @@
 	</script>
 
 	<script id="BlocksEmpty-template" type="text/html">
-		Szukaj w google "<%- query %>"
+		<% if(query){ %>
+			Szukaj w google "<%- query %>"
+		<% } else { %>
+			Loading...
+		<% } %>
 	</script>
 
 	<script id="BlockItem-template" type="text/html">
