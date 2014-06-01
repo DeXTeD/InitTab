@@ -5,9 +5,16 @@ class BlockModel extends Backbone.Model
 		title: ''
 		thumbnail: ''
 		score: 0
+		visible: yes
 
-	hasString: (q) ->
+	search: (q) ->
 		string = @get('title')
 		score = string.score q
-		@set {score}, silent: yes
-		return score > 0.2
+		visible = score > 0.15
+		@set {score, visible}, silent: yes
+		return visible
+
+	cleanSearch: ->
+		@set
+			score: 0
+			visible: yes

@@ -9,7 +9,13 @@ class SearchItemView extends Backbone.Marionette.ItemView
 
 	changeQuery: (event) ->
 		val = event.currentTarget.value
-		console.log val
-		alert('TODO') if event.keyCode is KEY_ENTER
-		val = '' if event.keyCode is KEY_ESC
+
+		if event.keyCode is KEY_ENTER
+			App.vent.trigger 'enter'
+
+		if event.keyCode is KEY_ESC
+		 	val = ''
+			App.vent.trigger 'esc'
+
+		val = $.trim val
 		@model.set 'query', event.currentTarget.value = val

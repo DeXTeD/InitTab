@@ -1,6 +1,6 @@
 
 class CompositeModel extends Backbone.Model
 
-	default:
+	defaults:
 		query: ''
 

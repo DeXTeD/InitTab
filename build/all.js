@@ -19032,19 +19032,29 @@ BlockModel = (function(_super) {
   BlockModel.prototype.defaults = {
     title: '',
     thumbnail: '',
-    score: 0
+    score: 0,
+    visible: true
   };
 
-  BlockModel.prototype.hasString = function(q) {
-    var score, string;
+  BlockModel.prototype.search = function(q) {
+    var score, string, visible;
     string = this.get('title');
     score = string.score(q);
+    visible = score > 0.15;
     this.set({
-      score: score
+      score: score,
+      visible: visible
     }, {
       silent: true
     });
-    return score > 0.2;
+    return visible;
+  };
+
+  BlockModel.prototype.cleanSearch = function() {
+    return this.set({
+      score: 0,
+      visible: true
+    });
   };
 
   return BlockModel;
@@ -19062,7 +19072,7 @@ CompositeModel = (function(_super) {
     return CompositeModel.__super__.constructor.apply(this, arguments);
   }
 
-  CompositeModel.prototype["default"] = {
+  CompositeModel.prototype.defaults = {
     query: ''
   };
 
@@ -19084,6 +19094,38 @@ BlocksCollection = (function(_super) {
   BlocksCollection.prototype.model = BlockModel;
 
   BlocksCollection.prototype.url = 'tmp/speedial.json';
+
+  BlocksCollection.prototype._searching = false;
+
+  BlocksCollection.prototype.comparator = function(model) {
+    if (this.searching) {
+      return -model.get('score');
+    } else {
+      return model.get('position');
+    }
+  };
+
+  BlocksCollection.prototype.getBest = function() {
+    var best;
+    best = null;
+    this.each(function(model) {
+      if (!best || best.get('score') < model.get('score')) {
+        return best = model;
+      }
+    });
+    return best;
+  };
+
+  BlocksCollection.prototype.count = function() {
+    return this.where({
+      visible: true
+    }).length;
+  };
+
+  BlocksCollection.prototype.isSearching = function(_searching) {
+    this._searching = _searching;
+    return this;
+  };
 
   return BlocksCollection;
 
@@ -19126,23 +19168,82 @@ BlocksCompositeView = (function(_super) {
   BlocksCompositeView.prototype.itemViewContainer = "[data-blocks]";
 
   BlocksCompositeView.prototype.initialize = function() {
-    return this.listenTo(this.model, 'change:query', _.debounce(this.render, 50));
+    this.listenTo(App.vent, 'enter', this.openBest);
+    this.listenTo(this.model, 'change:query', _.debounce(function(model, query) {
+      if (query) {
+        this.collection.isSearching(true).each(function(model) {
+          return model.search(query);
+        });
+      } else {
+        this.collection.isSearching(false).each(function(model) {
+          return model.cleanSearch();
+        });
+      }
+      this.collection.sort();
+      return this.render();
+    }, 50));
+    return this.on('before:item:added', function(view) {
+      if (view instanceof BlocksEmptyView) {
+        return view.model = this.model;
+      }
+    });
+  };
+
+  BlocksCompositeView.prototype.getEmptyView = function() {
+    return BlocksEmptyView;
   };
 
   BlocksCompositeView.prototype.addItemView = function(item, view, index) {
-    var q;
-    q = this.model.get('query');
-    if (q) {
-      if (!item.hasString(q)) {
-        return;
-      }
+    if (item.get('visible') === false) {
+      return;
     }
     return BlocksCompositeView.__super__.addItemView.apply(this, arguments);
+  };
+
+  BlocksCompositeView.prototype.openBest = function() {
+    var best;
+    if (this.isEmpty()) {
+      return App.vent.trigger('search', this.model.get('query'));
+    } else {
+      best = this.collection.getBest();
+      return App.vent.trigger('open', best.get('url'));
+    }
+  };
+
+  BlocksCompositeView.prototype.isEmpty = function() {
+    return this.collection.count() < 1;
   };
 
   return BlocksCompositeView;
 
 })(Backbone.Marionette.CompositeView);
+
+var BlocksEmptyView,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+BlocksEmptyView = (function(_super) {
+  __extends(BlocksEmptyView, _super);
+
+  function BlocksEmptyView() {
+    return BlocksEmptyView.__super__.constructor.apply(this, arguments);
+  }
+
+  BlocksEmptyView.prototype.template = "#BlocksEmpty-template";
+
+  BlocksEmptyView.prototype.className = 'blockEmpty';
+
+  BlocksEmptyView.prototype.events = {
+    'click': 'onClick'
+  };
+
+  BlocksEmptyView.prototype.onClick = function() {
+    return App.vent.trigger('search', this.model.get('query'));
+  };
+
+  return BlocksEmptyView;
+
+})(Backbone.Marionette.ItemView);
 
 var KEY_ENTER, KEY_ESC, SearchItemView,
   __hasProp = {}.hasOwnProperty,
@@ -19172,13 +19273,14 @@ SearchItemView = (function(_super) {
   SearchItemView.prototype.changeQuery = function(event) {
     var val;
     val = event.currentTarget.value;
-    console.log(val);
     if (event.keyCode === KEY_ENTER) {
-      alert('TODO');
+      App.vent.trigger('enter');
     }
     if (event.keyCode === KEY_ESC) {
       val = '';
     }
+    App.vent.trigger('esc');
+    val = $.trim(val);
     return this.model.set('query', event.currentTarget.value = val);
   };
 
@@ -19210,7 +19312,13 @@ App.addInitializer(function(options) {
     collection: blockCollection
   });
   App.mainRegion.show(blocksCompositeView.render());
-  return App.blocks = blocksCompositeView;
+  App.blocks = blocksCompositeView;
+  App.vent.on('open', function(url) {
+    return window.location = url;
+  });
+  return App.vent.on('search', function(query) {
+    return window.location = 'https://www.google.com/search?q=' + encodeURIComponent(query);
+  });
 });
 
 console.log("---------- START ----------");
