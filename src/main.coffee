@@ -4,13 +4,20 @@ window.App = App
 
 App.addRegions
 	mainRegion: "#main"
-	asideRegion: "#aside"
+	searchRegion: "#search"
 
 App.addInitializer (options) ->
+
 	blockCollection = new BlocksCollection
 	blockCollection.fetch()
+
+	compositeModel = new CompositeModel
+
+	searchView = new SearchItemView
+		model: compositeModel
+
 	blocksCompositeView = new BlocksCompositeView
-		model: new BlocksCompositeModel
+		model: compositeModel
 		collection: blockCollection
 
 	App.mainRegion.show blocksCompositeView.render()

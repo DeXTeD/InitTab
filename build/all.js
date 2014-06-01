@@ -19029,32 +19029,44 @@ BlockModel = (function(_super) {
     return BlockModel.__super__.constructor.apply(this, arguments);
   }
 
+  BlockModel.prototype.defaults = {
+    title: '',
+    thumbnail: '',
+    score: 0
+  };
+
   BlockModel.prototype.hasString = function(q) {
-    var string;
+    var score, string;
     string = this.get('title');
-    return string.score(q) > 0.2;
+    score = string.score(q);
+    this.set({
+      score: score
+    }, {
+      silent: true
+    });
+    return score > 0.2;
   };
 
   return BlockModel;
 
 })(Backbone.Model);
 
-var BlocksCompositeModel,
+var CompositeModel,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-BlocksCompositeModel = (function(_super) {
-  __extends(BlocksCompositeModel, _super);
+CompositeModel = (function(_super) {
+  __extends(CompositeModel, _super);
 
-  function BlocksCompositeModel() {
-    return BlocksCompositeModel.__super__.constructor.apply(this, arguments);
+  function CompositeModel() {
+    return CompositeModel.__super__.constructor.apply(this, arguments);
   }
 
-  BlocksCompositeModel.prototype["default"] = {
+  CompositeModel.prototype["default"] = {
     query: ''
   };
 
-  return BlocksCompositeModel;
+  return CompositeModel;
 
 })(Backbone.Model);
 
@@ -19077,13 +19089,9 @@ BlocksCollection = (function(_super) {
 
 })(Backbone.Collection);
 
-var BlockItemView, BlocksCompositeView, KEY_ENTER, KEY_ESC,
+var BlockItemView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-KEY_ESC = 27;
-
-KEY_ENTER = 13;
 
 BlockItemView = (function(_super) {
   __extends(BlockItemView, _super);
@@ -19100,6 +19108,10 @@ BlockItemView = (function(_super) {
 
 })(Backbone.Marionette.ItemView);
 
+var BlocksCompositeView,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
 BlocksCompositeView = (function(_super) {
   __extends(BlocksCompositeView, _super);
 
@@ -19113,32 +19125,9 @@ BlocksCompositeView = (function(_super) {
 
   BlocksCompositeView.prototype.itemViewContainer = "[data-blocks]";
 
-  BlocksCompositeView.prototype.ui = {
-    search: '#search'
-  };
-
-  BlocksCompositeView.prototype.events = {
-    'keyup @ui.search': 'changeQuery'
-  };
-
   BlocksCompositeView.prototype.initialize = function() {
-    return this.listenTo(this.model, 'change:query', function() {
-      this.$itemViewContainer.empty();
-      return this.showCollection();
-    });
+    return this.listenTo(this.model, 'change:query', _.debounce(this.render, 50));
   };
-
-  BlocksCompositeView.prototype.changeQuery = _.debounce(function(event) {
-    var val;
-    val = event.currentTarget.value;
-    if (event.keyCode === KEY_ENTER) {
-      alert('TODO');
-    }
-    if (event.keyCode === KEY_ESC) {
-      val = '';
-    }
-    return this.model.set('query', event.currentTarget.value = val);
-  }, 100);
 
   BlocksCompositeView.prototype.addItemView = function(item, view, index) {
     var q;
@@ -19155,6 +19144,48 @@ BlocksCompositeView = (function(_super) {
 
 })(Backbone.Marionette.CompositeView);
 
+var KEY_ENTER, KEY_ESC, SearchItemView,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+KEY_ESC = 27;
+
+KEY_ENTER = 13;
+
+SearchItemView = (function(_super) {
+  __extends(SearchItemView, _super);
+
+  function SearchItemView() {
+    return SearchItemView.__super__.constructor.apply(this, arguments);
+  }
+
+  SearchItemView.prototype.el = "#search";
+
+  SearchItemView.prototype.ui = {
+    input: 'input'
+  };
+
+  SearchItemView.prototype.events = {
+    'keyup @ui.input': 'changeQuery'
+  };
+
+  SearchItemView.prototype.changeQuery = function(event) {
+    var val;
+    val = event.currentTarget.value;
+    console.log(val);
+    if (event.keyCode === KEY_ENTER) {
+      alert('TODO');
+    }
+    if (event.keyCode === KEY_ESC) {
+      val = '';
+    }
+    return this.model.set('query', event.currentTarget.value = val);
+  };
+
+  return SearchItemView;
+
+})(Backbone.Marionette.ItemView);
+
 var App;
 
 App = new Backbone.Marionette.Application();
@@ -19163,15 +19194,19 @@ window.App = App;
 
 App.addRegions({
   mainRegion: "#main",
-  asideRegion: "#aside"
+  searchRegion: "#search"
 });
 
 App.addInitializer(function(options) {
-  var blockCollection, blocksCompositeView;
+  var blockCollection, blocksCompositeView, compositeModel, searchView;
   blockCollection = new BlocksCollection;
   blockCollection.fetch();
+  compositeModel = new CompositeModel;
+  searchView = new SearchItemView({
+    model: compositeModel
+  });
   blocksCompositeView = new BlocksCompositeView({
-    model: new BlocksCompositeModel,
+    model: compositeModel,
     collection: blockCollection
   });
   App.mainRegion.show(blocksCompositeView.render());

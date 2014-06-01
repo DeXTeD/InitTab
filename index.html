@@ -7,19 +7,22 @@
 </head>
 <body>
 
+	<div class="search" id="search">
+		<input type="text" class="search-input">
+	</div>
 	<main id="main">main</main>
 
 	<script id="BlocksComposite-template" type="text/html">
-		<div class="search">
-			<input type="text" id="search" class="search-input">
-		</div>
 		<div class="blocksWrapper" data-blocks></div>
 	</script>
 
 	<script id="BlockItem-template" type="text/html">
 		<% if(!thumbnail) thumbnail = 'http://9px.pl/300x100/FFF/444/'+title %>
 		<a href="<%= url %>" class="block-image" style="background-image: url('<%- thumbnail %>');">
-			<span class="block-title"><%= title %></span>
+			<span class="block-title">
+				<%- title %> <br>
+				<b><%= score %></b>
+			</span>
 		</a>
 	</script>
 
