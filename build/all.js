@@ -19272,16 +19272,17 @@ SearchItemView = (function(_super) {
 
   SearchItemView.prototype.changeQuery = function(event) {
     var val;
-    val = event.currentTarget.value;
+    val = $.trim(event.currentTarget.value);
     if (event.keyCode === KEY_ENTER) {
       App.vent.trigger('enter');
     }
     if (event.keyCode === KEY_ESC) {
-      val = '';
+      val = event.currentTarget.value = '';
     }
     App.vent.trigger('esc');
-    val = $.trim(val);
-    return this.model.set('query', event.currentTarget.value = val);
+    return this.model.set({
+      query: val
+    });
   };
 
   return SearchItemView;
