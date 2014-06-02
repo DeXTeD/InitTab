@@ -1,7 +1,7 @@
 
 class BlocksCollection extends Backbone.Collection
 	model: BlockModel
-	url: 'tmp/speedial.json'
+	url: 'data/index.php'
 
 	_searching: no
 	comparator: (model) ->

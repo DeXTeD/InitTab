@@ -13,7 +13,7 @@ App.addInitializer (options) ->
 
 	compositeModel = new CompositeModel
 
-	searchView = new SearchItemView
+	searchView = new NavItemView
 		model: compositeModel
 
 	blocksCompositeView = new BlocksCompositeView
@@ -23,13 +23,14 @@ App.addInitializer (options) ->
 	App.mainRegion.show blocksCompositeView.render()
 	App.blocks = blocksCompositeView
 
+	App.vent.on 'new', ->
+		console.log "Showing new form"
+
 	App.vent.on 'open', (url) ->
 		window.location = url
 
 	App.vent.on 'search', (query) ->
 		window.location = 'https://www.google.com/search?q='+encodeURIComponent(query)
 
-
-console.log "---------- START ----------"
-
+Backbone.emulateHTTP = yes
 App.start()

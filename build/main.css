@@ -1,3 +1,4 @@
+@import "normalize.css";
 * {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
@@ -7,11 +8,11 @@ body {
   background: #333;
   font-family: sans-serif;
   margin: 0;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 .search {
   border-bottom: 1px solid #222;
-  padding: 10px;
+  padding: 10px 70px;
   margin-bottom: 10px;
 }
 .search-input {
@@ -27,6 +28,20 @@ body {
   text-align: center;
   font-weight: bold;
 }
+.add {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: none;
+  border: none;
+  padding: 0;
+  color: #999;
+  font-size: 40px;
+  font-weight: bold;
+  width: 70px;
+  height: 60px;
+  line-height: 60px;
+}
 .blocksWrapper {
   text-align: center;
 }
@@ -34,7 +49,7 @@ body {
 .blockEmpty {
   background: #FFF;
   display: inline-block;
-  width: 18%;
+  width: 14.66666667%;
   position: relative;
   border-radius: 3px;
   margin: .5%;
@@ -46,9 +61,43 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
+@media screen and (max-width: 1000px) {
+  .block,
+  .blockEmpty {
+    width: 18%;
+  }
+}
+@media screen and (max-width: 650px) {
+  .block,
+  .blockEmpty {
+    width: 23%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .block,
+  .blockEmpty {
+    width: 31.33333333%;
+  }
+}
 .block:hover {
   -webkit-box-shadow: 0 0 10px #FFF;
   box-shadow: 0 0 10px #FFF;
+}
+.block-destroy {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 2px;
+  color: #CCC;
+  border: 0;
+  padding: 0;
+  background: none;
+  font-weight: bold;
+  line-height: 1em;
+  cursor: pointer;
+}
+.block-destroy:hover {
+  color: #F33;
 }
 .block-image {
   display: block;
@@ -67,6 +116,9 @@ body {
   font-size: 12px;
   padding: 3px;
   color: inherit;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .blockEmpty {
   background: #EEE;

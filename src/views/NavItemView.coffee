@@ -1,11 +1,16 @@
 KEY_ESC = 27
 KEY_ENTER = 13
 
-class SearchItemView extends Backbone.Marionette.ItemView
+class NavItemView extends Backbone.Marionette.ItemView
 	el: "#search"
-	ui: input: 'input'
+	ui:
+		add: '[data-add]'
+		search: 'input'
+
 	events:
-		'keyup @ui.input': 'changeQuery'
+		'keyup @ui.search': 'changeQuery'
+		'click @ui.add': 'addNew'
+
 
 	changeQuery: (event) ->
 		val = $.trim event.currentTarget.value
@@ -18,3 +23,7 @@ class SearchItemView extends Backbone.Marionette.ItemView
 			App.vent.trigger 'esc'
 
 		@model.set query: val
+
+
+	addNew: ->
+		App.vent.trigger 'new'

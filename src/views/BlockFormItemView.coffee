@@ -1,10 +1,10 @@
 
-class BlockItemView extends Backbone.Marionette.ItemView
-	template: "#BlockItem-template"
-	className: "block"
+class BlockFormItemView extends Backbone.Marionette.ItemView
+	template: "#BlockItemForm-template"
+	className: "popup"
 
 	ui:
-		destroy: "[data-destroy]"
+		inputs: ":input"
 		edit: "[data-edit]"
 
 	events:

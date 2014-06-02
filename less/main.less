@@ -1,3 +1,5 @@
+@import "normalize.css";
+
 * {
 	box-sizing: border-box;
 }
@@ -6,12 +8,12 @@ body {
 	background: #333;
 	font-family: sans-serif;
 	margin: 0;
-	overflow: scroll;
+	overflow-y: scroll;
 }
 
 .search {
 	border-bottom: 1px solid #222;
-	padding: 10px;
+	padding: 10px 70px;
 	margin-bottom: 10px;
 }
 .search-input {
@@ -28,6 +30,21 @@ body {
 	font-weight: bold;
 }
 
+.add {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: none;
+	border: none;
+	padding: 0;
+	color: #999;
+	font-size: 40px;
+	font-weight: bold;
+	width: 70px;
+	height: 60px;
+	line-height: 60px;
+}
+
 
 .blocksWrapper {
 	text-align: center;
@@ -36,7 +53,16 @@ body {
 .block {
 	background: #FFF;
 	display: inline-block;
-	width: 100%/5 - 2;
+	width: 100%/6 - 2;
+	@media screen and (max-width: 1000px) {
+		width: 100%/5 - 2;
+	}
+	@media screen and (max-width: 650px) {
+		width: 100%/4 - 2;
+	}
+	@media screen and (max-width: 400px) {
+		width: 100%/3 - 2;
+	}
 	position: relative;
 	border-radius: 3px;
 	margin: .5%;
@@ -50,6 +76,22 @@ body {
 		box-shadow: 0 0 10px #FFF;
 	}
 }
+	.block-destroy {
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 2px;
+		color: #CCC;
+		border: 0;
+		padding: 0;
+		background: none;
+		font-weight: bold;
+		line-height: 1em;
+		cursor: pointer;
+		&:hover {
+			color: #F33;
+		}
+	}
 	.block-image {
 		display: block;
 		background: no-repeat center center;
@@ -66,6 +108,9 @@ body {
 		font-size: 12px;
 		padding: 3px;
 		color: inherit;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
 	}
 
 

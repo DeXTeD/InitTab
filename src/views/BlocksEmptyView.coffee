@@ -7,4 +7,9 @@ class BlocksEmptyView extends Backbone.Marionette.ItemView
 		'click': 'onClick'
 
 	onClick: ->
-		App.vent.trigger 'search', @model.get('query')
+		query = @model.get('query')
+		App.vent.trigger 'search', query if query
+
+	serializeData: ->
+		model: @model.toJSON()
+		collection: @collection.toJSON()

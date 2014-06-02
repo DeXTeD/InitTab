@@ -1,0 +1,373 @@
+[
+  {
+    "id": 39,
+    "title": "Underscore.js",
+    "url": "http://underscorejs.org/",
+    "thumbnail": "http://underscorejs.org/docs/images/underscore.png",
+    "position": 0
+  },
+  {
+    "id": 3,
+    "title": "Gmail",
+    "url": "https://mail.google.com",
+    "thumbnail": "http://farm9.staticflickr.com/8113/8660321326_d1ca08f601_o.png",
+    "position": 1
+  },
+  {
+    "id": 16,
+    "title": "Codepen",
+    "url": "http://codepen.io/",
+    "thumbnail": "https://s3.amazonaws.com/fvd-data/sdpreview/0/d47e672/1377533205-521b7d1587fdb/preview.png",
+    "position": 1
+  },
+  {
+    "id": 38,
+    "title": "Backbone.js",
+    "url": "http://backbonejs.org/",
+    "thumbnail": "http://backbonejs.org/docs/images/backbone.png",
+    "position": 1
+  },
+  {
+    "id": 43,
+    "title": "iStock",
+    "url": "http://www.istockphoto.com/photo",
+    "thumbnail": "http://www.digitalartsonline.co.uk/cmsdata/features/3469074/istock-by-getty-688.gif",
+    "position": 1
+  },
+  {
+    "id": 50,
+    "title": "Lampy",
+    "url": "http://sklep-lampy.net/",
+    "thumbnail": "",
+    "position": 1
+  },
+  {
+    "id": 1,
+    "title": "GitHub",
+    "url": "https://github.com/DeXTeD",
+    "thumbnail": "http://farm6.static.flickr.com/5149/5612548639_6ce41bf235_o.jpg",
+    "position": 2
+  },
+  {
+    "id": 4,
+    "title": "Facebook",
+    "url": "https://www.facebook.com",
+    "thumbnail": "http://i.imgur.com/yIeoHS5.png",
+    "position": 2
+  },
+  {
+    "id": 26,
+    "title": "Require.js",
+    "url": "http://requirejs.org/",
+    "thumbnail": "http://requirejs.org/i/logo.png",
+    "position": 2
+  },
+  {
+    "id": 44,
+    "title": "The Noun Project",
+    "url": "http://thenounproject.com",
+    "thumbnail": "https://s3.amazonaws.com/kinlane-productions/api-evangelist/noun-project/the-noun-project.png",
+    "position": 2
+  },
+  {
+    "id": 53,
+    "title": "Lampy CMS",
+    "url": "http://test.redhand.com.pl:81/lampy/admin_/",
+    "thumbnail": "",
+    "position": 2
+  },
+  {
+    "id": 7,
+    "title": "Dribbble",
+    "url": "http://dribbble.com",
+    "thumbnail": "http://stanhutcheon.me/experiments/dribbble-ticket/img/ball.png",
+    "position": 3
+  },
+  {
+    "id": 15,
+    "title": "DeXTeD - Bitbucket",
+    "url": "https://bitbucket.org/DeXTeD",
+    "thumbnail": "https://s3.amazonaws.com/fvd-data/sdpreview/0/bbfad096/1377527636-521b675492e14/preview.png",
+    "position": 3
+  },
+  {
+    "id": 27,
+    "title": "Gulpjs",
+    "url": "http://gulpjs.com/",
+    "thumbnail": "https://raw2.github.com/gulpjs/artwork/master/gulp-2x.png",
+    "position": 3
+  },
+  {
+    "id": 51,
+    "title": "Karnisze",
+    "url": "https://www.sklep-karnisze.net/",
+    "thumbnail": "",
+    "position": 3
+  },
+  {
+    "id": 6,
+    "title": "Deviantart",
+    "url": "https://www.deviantart.com/designs/web/",
+    "thumbnail": "http://smoothape.com/wp-content/uploads/2013/08/deviantart_logo_favicon_vector_by_revengexx14-d3d5u39.png",
+    "position": 4
+  },
+  {
+    "id": 28,
+    "title": "JS DB",
+    "url": "http://www.jsdb.io/",
+    "thumbnail": "http://www.jsdb.io/icons/apple-touch-icon-144x144-precomposed.png",
+    "position": 4
+  },
+  {
+    "id": 40,
+    "title": "The W3C Markup Validation Servic",
+    "url": "http://validator.w3.org/",
+    "thumbnail": "https://s3.amazonaws.com/fvd-data/sdpreview/0/8cdde513/1377550131-521bbf33a65bc/preview.png",
+    "position": 4
+  },
+  {
+    "id": 54,
+    "title": "Karnisze CMS",
+    "url": "https://www.sklep-karnisze.net/@admin/logowanie",
+    "thumbnail": "",
+    "position": 4
+  },
+  {
+    "id": 8,
+    "title": "PSD Folder",
+    "url": "http://www.psdfolder.com/",
+    "thumbnail": "http://www.psdfolder.com/wp-content/uploads/2014/04/logo.png",
+    "position": 5
+  },
+  {
+    "id": 20,
+    "title": "IcoMoon",
+    "url": "http://icomoon.io/app/",
+    "thumbnail": "http://dev.bowdenweb.com/a/i/cons/icomoon/icomoon.png",
+    "position": 5
+  },
+  {
+    "id": 32,
+    "title": "Micro.js",
+    "url": "http://microjs.com/",
+    "thumbnail": "",
+    "position": 5
+  },
+  {
+    "id": 48,
+    "title": "Knall TEST",
+    "url": "http://test.redhand.com.pl:81/knall/",
+    "thumbnail": "",
+    "position": 5
+  },
+  {
+    "id": 9,
+    "title": "Awwwards",
+    "url": "http://awwwards.com",
+    "thumbnail": "http://www.awwwards.com/bundles/tvawwwards/images/logo.svg",
+    "position": 6
+  },
+  {
+    "id": 18,
+    "title": "CoffeeScript",
+    "url": "http://coffeescript.org/",
+    "thumbnail": "http://coffeescript.org/documentation/images/logo.png",
+    "position": 6
+  },
+  {
+    "id": 29,
+    "title": "moment.js",
+    "url": "http://momentjs.com/",
+    "thumbnail": "http://i.imgur.com/jnpRHuE.png",
+    "position": 6
+  },
+  {
+    "id": 34,
+    "title": "WebdesignRepo",
+    "url": "http://webdesignrepo.com",
+    "thumbnail": "http://i.imgur.com/5MyChPg.png",
+    "position": 7
+  },
+  {
+    "id": 41,
+    "title": "Stylus",
+    "url": "http://learnboost.github.io/stylus/",
+    "thumbnail": "http://learnboost.github.io/stylus/docs/graphics/Logos/stylus.png",
+    "position": 7
+  },
+  {
+    "id": 19,
+    "title": "Smarty",
+    "url": "http://www.smarty.net/docsv2/en/",
+    "thumbnail": "http://www.smarty.net/images/logo.png",
+    "position": 8
+  },
+  {
+    "id": 31,
+    "title": "ScrollReveal.js",
+    "url": "http://scrollrevealjs.org/",
+    "thumbnail": "http://i.imgur.com/dP1aFwO.png",
+    "position": 8
+  },
+  {
+    "id": 23,
+    "title": "Favicon Generator",
+    "url": "http://realfavicongenerator.net/",
+    "thumbnail": "http://realfavicongenerator.net/real_favicon_generator.png",
+    "position": 9
+  },
+  {
+    "id": 33,
+    "title": "localForage",
+    "url": "http://mozilla.github.io/localForage/",
+    "thumbnail": "",
+    "position": 9
+  },
+  {
+    "id": 21,
+    "title": "Browserstack",
+    "url": "http://www.browserstack.com/",
+    "thumbnail": "https://s3.amazonaws.com/fvd-data/sdpreview/0/16c82e2e/1393823547-53140f3bdf8bb/preview.png",
+    "position": 10
+  },
+  {
+    "id": 35,
+    "title": "Magnific popup",
+    "url": "http://dimsemenov.com/plugins/magnific-popup/",
+    "thumbnail": "http://i.imgur.com/O89vmHt.png",
+    "position": 10
+  },
+  {
+    "id": 12,
+    "title": "Code 9px",
+    "url": "http://code.9px.pl/",
+    "thumbnail": "http://i.imgur.com/62Cp7LL.png",
+    "position": 11
+  },
+  {
+    "id": 36,
+    "title": "Sdaptive Backgrounds",
+    "url": "http://briangonzalez.github.io/jquery.adaptive-backgrounds.js/",
+    "thumbnail": "http://i.imgur.com/T7QyOu2.png",
+    "position": 11
+  },
+  {
+    "id": 10,
+    "title": "Pragmatic Backbone",
+    "url": "http://pragmatic-backbone.com",
+    "thumbnail": "http://i.imgur.com/gjUKLP6.png",
+    "position": 12
+  },
+  {
+    "id": 37,
+    "title": "Backstretch",
+    "url": "http://srobbin.com/jquery-plugins/backstretch/",
+    "thumbnail": "http://i.imgur.com/anje607.png",
+    "position": 12
+  },
+  {
+    "id": 17,
+    "title": "Devdocs",
+    "url": "http://devdocs.io/",
+    "thumbnail": "http://i.imgur.com/H47Xfn9.png",
+    "position": 13
+  },
+  {
+    "id": 52,
+    "title": "suffick/Picker",
+    "url": "https://github.com/suffick/Picker",
+    "thumbnail": "http://i.imgur.com/0lb6BD1.png",
+    "position": 13
+  },
+  {
+    "id": 22,
+    "title": "Caniuse",
+    "url": "http://caniuse.com/",
+    "thumbnail": "http://i.imgur.com/fdqQH7L.png",
+    "position": 14
+  },
+  {
+    "id": 24,
+    "title": "Regexr",
+    "url": "http://regexr.com",
+    "thumbnail": "http://i.imgur.com/9nWmEK9.png",
+    "position": 15
+  },
+  {
+    "id": 25,
+    "title": "JS to CoffeeScript",
+    "url": "http://js2coffee.org/",
+    "thumbnail": "http://js2coffee.org/images/logo.gif",
+    "position": 16
+  },
+  {
+    "id": 2,
+    "title": "YouTube",
+    "url": "https://www.youtube.com/html5",
+    "thumbnail": "http://farm6.static.flickr.com/5266/5612548979_9d0135356c_o.jpg",
+    "position": 999
+  },
+  {
+    "id": 11,
+    "title": "Ex.fm",
+    "url": "http://ex.fm",
+    "thumbnail": "http://www.ferra.ru/images/341/341916.png",
+    "position": 999
+  },
+  {
+    "id": 13,
+    "title": "localhost",
+    "url": "http://localhost/~kacper/",
+    "thumbnail": "http://9px.pl/FFF/444/Localhost",
+    "position": 999
+  },
+  {
+    "id": 42,
+    "title": "Google Fonts",
+    "url": "http://www.google.com/fonts/",
+    "thumbnail": "https://skyfonts.com/Content/themes/images/google-logo.png",
+    "position": 999
+  },
+  {
+    "id": 45,
+    "title": "Clipping Magic",
+    "url": "http://clippingmagic.com/",
+    "thumbnail": "https://s3.amazonaws.com/fvd-data/sdpreview/0/4249ead0/1393789875-53138bb3dbc4b/preview.png",
+    "position": 999
+  },
+  {
+    "id": 47,
+    "title": "Best wallpapers / Wallbase.cc",
+    "url": "http://wallbase.cc/toplist",
+    "thumbnail": "http://www.userlogos.org/files/logos/mikrob/wallbase.png",
+    "position": 999
+  },
+  {
+    "id": 49,
+    "title": "Lampy TEST",
+    "url": "http://test.redhand.com.pl:81/lampy/",
+    "thumbnail": "",
+    "position": 999
+  },
+  {
+    "id": 55,
+    "title": "IcoMoon App - Icon Font Generator",
+    "url": "http://icomoon.io/app/#/select",
+    "thumbnail": "",
+    "position": 999
+  },
+  {
+    "id": 56,
+    "title": "Wydział Inżynierii Mechanicznej i Informatyki",
+    "url": "http://wimi.pcz.pl/download/plan_niestacjonarny/Plan_zaoczne_lato_13_14_3_kierunek.html#table_15_DETAILED",
+    "thumbnail": "http://www.turniejpck.moszczenica.eu/images/logo%20politechnika.jpg",
+    "position": 999
+  },
+  {
+    "id": 57,
+    "title": "Bank Ochrony Środowiska S.A.",
+    "url": "https://bosbank24.pl/twojekonto",
+    "thumbnail": "https://bosbank24.pl/html/img/logo_bosbank.gif",
+    "position": 999
+  }
+]

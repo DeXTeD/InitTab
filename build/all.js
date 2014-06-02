@@ -19093,7 +19093,7 @@ BlocksCollection = (function(_super) {
 
   BlocksCollection.prototype.model = BlockModel;
 
-  BlocksCollection.prototype.url = 'tmp/speedial.json';
+  BlocksCollection.prototype.url = 'data/index.php';
 
   BlocksCollection.prototype._searching = false;
 
@@ -19131,6 +19131,44 @@ BlocksCollection = (function(_super) {
 
 })(Backbone.Collection);
 
+var BlockFormItemView,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+BlockFormItemView = (function(_super) {
+  __extends(BlockFormItemView, _super);
+
+  function BlockFormItemView() {
+    return BlockFormItemView.__super__.constructor.apply(this, arguments);
+  }
+
+  BlockFormItemView.prototype.template = "#BlockItemForm-template";
+
+  BlockFormItemView.prototype.className = "popup";
+
+  BlockFormItemView.prototype.ui = {
+    inputs: ":input",
+    edit: "[data-edit]"
+  };
+
+  BlockFormItemView.prototype.events = {
+    'click @ui.destroy': 'destroy'
+  };
+
+  BlockFormItemView.prototype.modelEvents = {
+    "change:url": "render",
+    "change:title": "render",
+    "change:thumbnail": "render"
+  };
+
+  BlockFormItemView.prototype.destroy = function() {
+    return this.model.destroy();
+  };
+
+  return BlockFormItemView;
+
+})(Backbone.Marionette.ItemView);
+
 var BlockItemView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -19144,7 +19182,26 @@ BlockItemView = (function(_super) {
 
   BlockItemView.prototype.template = "#BlockItem-template";
 
-  BlockItemView.prototype.className = 'block';
+  BlockItemView.prototype.className = "block";
+
+  BlockItemView.prototype.ui = {
+    destroy: "[data-destroy]",
+    edit: "[data-edit]"
+  };
+
+  BlockItemView.prototype.events = {
+    'click @ui.destroy': 'destroy'
+  };
+
+  BlockItemView.prototype.modelEvents = {
+    "change:url": "render",
+    "change:title": "render",
+    "change:thumbnail": "render"
+  };
+
+  BlockItemView.prototype.destroy = function() {
+    return this.model.destroy();
+  };
 
   return BlockItemView;
 
@@ -19184,7 +19241,8 @@ BlocksCompositeView = (function(_super) {
     }, 50));
     return this.on('before:item:added', function(view) {
       if (view instanceof BlocksEmptyView) {
-        return view.model = this.model;
+        view.model = this.model;
+        return view.collection = this.collection;
       }
     });
   };
@@ -19238,14 +19296,25 @@ BlocksEmptyView = (function(_super) {
   };
 
   BlocksEmptyView.prototype.onClick = function() {
-    return App.vent.trigger('search', this.model.get('query'));
+    var query;
+    query = this.model.get('query');
+    if (query) {
+      return App.vent.trigger('search', query);
+    }
+  };
+
+  BlocksEmptyView.prototype.serializeData = function() {
+    return {
+      model: this.model.toJSON(),
+      collection: this.collection.toJSON()
+    };
   };
 
   return BlocksEmptyView;
 
 })(Backbone.Marionette.ItemView);
 
-var KEY_ENTER, KEY_ESC, SearchItemView,
+var KEY_ENTER, KEY_ESC, NavItemView,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -19253,24 +19322,26 @@ KEY_ESC = 27;
 
 KEY_ENTER = 13;
 
-SearchItemView = (function(_super) {
-  __extends(SearchItemView, _super);
+NavItemView = (function(_super) {
+  __extends(NavItemView, _super);
 
-  function SearchItemView() {
-    return SearchItemView.__super__.constructor.apply(this, arguments);
+  function NavItemView() {
+    return NavItemView.__super__.constructor.apply(this, arguments);
   }
 
-  SearchItemView.prototype.el = "#search";
+  NavItemView.prototype.el = "#search";
 
-  SearchItemView.prototype.ui = {
-    input: 'input'
+  NavItemView.prototype.ui = {
+    add: '[data-add]',
+    search: 'input'
   };
 
-  SearchItemView.prototype.events = {
-    'keyup @ui.input': 'changeQuery'
+  NavItemView.prototype.events = {
+    'keyup @ui.search': 'changeQuery',
+    'click @ui.add': 'addNew'
   };
 
-  SearchItemView.prototype.changeQuery = function(event) {
+  NavItemView.prototype.changeQuery = function(event) {
     var val;
     val = $.trim(event.currentTarget.value);
     if (event.keyCode === KEY_ENTER) {
@@ -19285,7 +19356,11 @@ SearchItemView = (function(_super) {
     });
   };
 
-  return SearchItemView;
+  NavItemView.prototype.addNew = function() {
+    return App.vent.trigger('new');
+  };
+
+  return NavItemView;
 
 })(Backbone.Marionette.ItemView);
 
@@ -19305,7 +19380,7 @@ App.addInitializer(function(options) {
   blockCollection = new BlocksCollection;
   blockCollection.fetch();
   compositeModel = new CompositeModel;
-  searchView = new SearchItemView({
+  searchView = new NavItemView({
     model: compositeModel
   });
   blocksCompositeView = new BlocksCompositeView({
@@ -19314,6 +19389,9 @@ App.addInitializer(function(options) {
   });
   App.mainRegion.show(blocksCompositeView.render());
   App.blocks = blocksCompositeView;
+  App.vent.on('new', function() {
+    return console.log("Showing new form");
+  });
   App.vent.on('open', function(url) {
     return window.location = url;
   });
@@ -19322,6 +19400,6 @@ App.addInitializer(function(options) {
   });
 });
 
-console.log("---------- START ----------");
+Backbone.emulateHTTP = true;
 
 App.start();

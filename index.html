@@ -4,10 +4,12 @@
 	<meta charset="UTF-8">
 	<title>InitTab</title>
 	<link rel="stylesheet" href="build/main.css">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
 	<div class="search" id="search">
+		<button class="add" type="button" data-add>+</button>
 		<input type="text" class="search-input">
 	</div>
 	<main id="main">main</main>
@@ -17,10 +19,13 @@
 	</script>
 
 	<script id="BlocksEmpty-template" type="text/html">
-		<% if(query){ %>
-			Szukaj w google "<%- query %>"
+		<% if(model.query){ %>
+			<% if(collection.length > 0) { %>
+				<small>Nie znalazłem nic w Twoich <strong><%- collection.length %></strong> speedialach...</small> <br>
+			<% } %>
+			Szukaj w Google <strong>"<%- model.query %>"</strong>
 		<% } else { %>
-			Loading...
+			...
 		<% } %>
 	</script>
 
@@ -31,6 +36,7 @@
 				<%- title %>
 			</span>
 		</a>
+		<button class="block-destroy" type="button" data-destroy>&times;</button>
 	</script>
 
 	<script src="build/all.js"></script>

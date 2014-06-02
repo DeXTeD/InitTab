@@ -19,21 +19,15 @@ class BlocksCompositeView extends Backbone.Marionette.CompositeView
 		, 50
 
 
-		# Podmieniamy model EmptyViewa
+		# Podmieniamy model i kolekcje EmptyViewa
 		@on 'before:item:added', (view) ->
 			if view instanceof BlocksEmptyView
 				view.model = @model
+				view.collection = @collection
 
 
 	getEmptyView: ->
 		BlocksEmptyView
-
-	# showEmptyView: ->
-	# 	EmptyView = @getEmptyView()
-
-	# 	if EmptyView and not @_showingEmptyView
-	# 		@_showingEmptyView = yes
-	# 		@addItemView @model, EmptyView, 0
 
 
 	addItemView: (item, view, index) ->
