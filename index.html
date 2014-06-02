@@ -54,10 +54,15 @@
 				<b class="label-name">Ikonka:</b>
 				<input type="url" value="<%- thumbnail %>" name="thumbnail" class="input input--full">
 			</label>
+			<label class="label">
+				<b class="label-name">Pozycja:</b>
+				<input type="number" value="<%- position %>" name="position" class="input input--number">
+			</label>
 			<p class="alignCenter">
 				<button class="button">Zapisz</button>
 			</p>
 		</form>
+		<button class="popup-close" type="button" data-close>&times;</button>
 	</script>
 
 	<script src="build/all.js"></script>

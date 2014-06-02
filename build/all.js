@@ -19034,6 +19034,7 @@ BlockModel = (function(_super) {
     thumbnail: '',
     url: '',
     score: 0,
+    position: 0,
     visible: true
   };
 
@@ -19149,11 +19150,13 @@ BlockFormItemView = (function(_super) {
 
   BlockFormItemView.prototype.ui = {
     form: "form",
-    inputs: ":input"
+    inputs: ":input",
+    close: "[data-close]"
   };
 
   BlockFormItemView.prototype.events = {
-    'submit @ui.form': 'submit'
+    'submit @ui.form': 'submit',
+    'click @ui.close': 'close'
   };
 
   BlockFormItemView.prototype.submit = function() {
@@ -19246,6 +19249,10 @@ BlocksCompositeView = (function(_super) {
       this.collection.sort();
       return this.render();
     }, 50));
+    this.listenTo(this.collection, 'change:position', function(model, position) {
+      this.collection.sort();
+      return this.render();
+    });
     return this.on('before:item:added', function(view) {
       if (view instanceof BlocksEmptyView) {
         view.model = this.model;
@@ -19256,6 +19263,20 @@ BlocksCompositeView = (function(_super) {
 
   BlocksCompositeView.prototype.getEmptyView = function() {
     return BlocksEmptyView;
+  };
+
+  BlocksCompositeView.prototype.appendHtml = function(collectionView, itemView, index) {
+    var children, childrenContainer;
+    if (collectionView.isBuffering) {
+      collectionView._bufferedChildren.push(itemView);
+    }
+    childrenContainer = collectionView.isBuffering ? $(collectionView.elBuffer) : this.getItemViewContainer(collectionView);
+    children = childrenContainer.children();
+    if (children.size() <= index) {
+      return childrenContainer.append(itemView.el);
+    } else {
+      return children.eq(index).before(itemView.el);
+    }
   };
 
   BlocksCompositeView.prototype.addItemView = function(item, view, index) {

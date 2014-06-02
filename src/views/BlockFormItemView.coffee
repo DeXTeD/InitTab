@@ -6,9 +6,11 @@ class BlockFormItemView extends Backbone.Marionette.ItemView
 	ui:
 		form: "form"
 		inputs: ":input"
+		close: "[data-close]"
 
 	events:
 		'submit @ui.form': 'submit'
+		'click @ui.close': 'close'
 
 	submit: ->
 		App.blocks.collection.add @model

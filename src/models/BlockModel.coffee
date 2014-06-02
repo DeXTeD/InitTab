@@ -6,6 +6,7 @@ class BlockModel extends Backbone.Model
 		thumbnail: ''
 		url: ''
 		score: 0
+		position: 0
 		visible: yes
 
 	search: (q) ->
