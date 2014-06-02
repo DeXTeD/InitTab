@@ -4,16 +4,16 @@ class BlockFormItemView extends Backbone.Marionette.ItemView
 	className: "popup"
 
 	ui:
+		form: "form"
 		inputs: ":input"
-		edit: "[data-edit]"
 
 	events:
-		'click @ui.destroy': 'destroy'
+		'submit @ui.form': 'submit'
 
-	modelEvents:
-		"change:url": "render"
-		"change:title": "render"
-		"change:thumbnail": "render"
-
-	destroy: ->
-		@model.destroy()
+	submit: ->
+		App.blocks.collection.add @model
+		data = {}
+		_.each @ui.form.serializeArray(), (input) ->
+			data[input.name] = input.value
+		@model.save data
+		@close()

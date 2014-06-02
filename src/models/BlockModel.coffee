@@ -4,6 +4,7 @@ class BlockModel extends Backbone.Model
 	defaults:
 		title: ''
 		thumbnail: ''
+		url: ''
 		score: 0
 		visible: yes
 

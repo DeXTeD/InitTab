@@ -8,6 +8,8 @@ App.addRegions
 
 App.addInitializer (options) ->
 
+	body = $ 'body'
+
 	blockCollection = new BlocksCollection
 	blockCollection.fetch()
 
@@ -24,7 +26,14 @@ App.addInitializer (options) ->
 	App.blocks = blocksCompositeView
 
 	App.vent.on 'new', ->
-		console.log "Showing new form"
+		form = new BlockFormItemView
+			model: new BlockModel
+		body.append form.render().el
+
+	App.vent.on 'edit', (model) ->
+		form = new BlockFormItemView
+			model: model
+		body.append form.render().el
 
 	App.vent.on 'open', (url) ->
 		window.location = url

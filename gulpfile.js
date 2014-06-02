@@ -33,6 +33,7 @@ var paths = {
     'src/main.coffee',
   ],
   styles: ['less/**/*.less'],
+  mainStyle: ['less/main.less'],
 };
 
 var output = 'build';
@@ -62,7 +63,7 @@ gulp.task('watch', function() {
 
 
 gulp.task('styles', function() {
-  gulp.src(paths.styles)
+  gulp.src(paths.mainStyle)
     .pipe(less())
     .pipe(autoprefixer())
     .pipe(gulp.dest(output));

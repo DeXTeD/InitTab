@@ -1,3 +1,11 @@
+
+@brandColor: #666;
+@basicRadius: 4px;
+@tabBP: 48em;
+@deskBP: 62em;
+@tvBP: 75em;
+
+
 @import "normalize.css";
 
 * {
@@ -9,118 +17,14 @@ body {
 	font-family: sans-serif;
 	margin: 0;
 	overflow-y: scroll;
+	font-size: 14px;
 }
 
-.search {
-	border-bottom: 1px solid #222;
-	padding: 10px 70px;
-	margin-bottom: 10px;
-}
-.search-input {
-	width: 100%;
-	max-width: 350px;
-	margin: auto;
-	display: block;
-	background: #222;
-	border: 1px solid #444;
-	font-size: 15px;
-	padding: 10px;
-	color: #999;
-	text-align: center;
-	font-weight: bold;
-}
-
-.add {
-	position: absolute;
-	top: 0;
-	left: 0;
-	background: none;
-	border: none;
-	padding: 0;
-	color: #999;
-	font-size: 40px;
-	font-weight: bold;
-	width: 70px;
-	height: 60px;
-	line-height: 60px;
-}
-
-
-.blocksWrapper {
+.alignCenter {
 	text-align: center;
 }
 
-.block {
-	background: #FFF;
-	display: inline-block;
-	width: 100%/6 - 2;
-	@media screen and (max-width: 1000px) {
-		width: 100%/5 - 2;
-	}
-	@media screen and (max-width: 650px) {
-		width: 100%/4 - 2;
-	}
-	@media screen and (max-width: 400px) {
-		width: 100%/3 - 2;
-	}
-	position: relative;
-	border-radius: 3px;
-	margin: .5%;
-	padding: 10px;
-	color: #333;
-	transition: all .1s ease;
-	box-shadow: 0 2px 4px rgba(0,0,0,.2);
-	cursor: pointer;
-
-	&:hover {
-		box-shadow: 0 0 10px #FFF;
-	}
-}
-	.block-destroy {
-		position: absolute;
-		top: 0;
-		right: 0;
-		padding: 2px;
-		color: #CCC;
-		border: 0;
-		padding: 0;
-		background: none;
-		font-weight: bold;
-		line-height: 1em;
-		cursor: pointer;
-		&:hover {
-			color: #F33;
-		}
-	}
-	.block-image {
-		display: block;
-		background: no-repeat center center;
-		background-size: contain;
-		padding-top: 70%;
-		color: inherit;
-		margin-bottom: 10px;
-	}
-	.block-title {
-		position: absolute;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		font-size: 12px;
-		padding: 3px;
-		color: inherit;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
-	}
-
-
-
-.blockEmpty:extend(.block) {
-	background: #EEE;
-	width: 100%/3;
-	border-radius: 3px;
-	margin: 2% auto;
-	padding: 10px;
-	color: #333;
-	box-shadow: 0 2px 4px rgba(0,0,0,.2);
-}
+@import "nav";
+@import "block";
+@import "popup";
+@import "form";

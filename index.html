@@ -8,9 +8,9 @@
 </head>
 <body>
 
-	<div class="search" id="search">
-		<button class="add" type="button" data-add>+</button>
-		<input type="text" class="search-input">
+	<div class="nav" id="search">
+		<button class="nav-add" type="button" data-add>+</button>
+		<input type="text" class="nav-search">
 	</div>
 	<main id="main">main</main>
 
@@ -37,6 +37,27 @@
 			</span>
 		</a>
 		<button class="block-destroy" type="button" data-destroy>&times;</button>
+		<button class="block-edit" type="button" data-edit>&bull;</button>
+	</script>
+
+	<script id="BlockItemForm-template" type="text/html">
+		<form>
+			<label class="label">
+				<b class="label-name">Tytuł:</b>
+				<input type="text" value="<%- title %>" name="title" class="input input--full">
+			</label>
+			<label class="label">
+				<b class="label-name">Adres:</b>
+				<input type="url" value="<%- url %>" name="url" class="input input--full">
+			</label>
+			<label class="label">
+				<b class="label-name">Ikonka:</b>
+				<input type="url" value="<%- thumbnail %>" name="thumbnail" class="input input--full">
+			</label>
+			<p class="alignCenter">
+				<button class="button">Zapisz</button>
+			</p>
+		</form>
 	</script>
 
 	<script src="build/all.js"></script>

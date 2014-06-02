@@ -19032,6 +19032,7 @@ BlockModel = (function(_super) {
   BlockModel.prototype.defaults = {
     title: '',
     thumbnail: '',
+    url: '',
     score: 0,
     visible: true
   };
@@ -19147,22 +19148,23 @@ BlockFormItemView = (function(_super) {
   BlockFormItemView.prototype.className = "popup";
 
   BlockFormItemView.prototype.ui = {
-    inputs: ":input",
-    edit: "[data-edit]"
+    form: "form",
+    inputs: ":input"
   };
 
   BlockFormItemView.prototype.events = {
-    'click @ui.destroy': 'destroy'
+    'submit @ui.form': 'submit'
   };
 
-  BlockFormItemView.prototype.modelEvents = {
-    "change:url": "render",
-    "change:title": "render",
-    "change:thumbnail": "render"
-  };
-
-  BlockFormItemView.prototype.destroy = function() {
-    return this.model.destroy();
+  BlockFormItemView.prototype.submit = function() {
+    var data;
+    App.blocks.collection.add(this.model);
+    data = {};
+    _.each(this.ui.form.serializeArray(), function(input) {
+      return data[input.name] = input.value;
+    });
+    this.model.save(data);
+    return this.close();
   };
 
   return BlockFormItemView;
@@ -19190,7 +19192,8 @@ BlockItemView = (function(_super) {
   };
 
   BlockItemView.prototype.events = {
-    'click @ui.destroy': 'destroy'
+    'click @ui.destroy': 'destroy',
+    'click @ui.edit': 'edit'
   };
 
   BlockItemView.prototype.modelEvents = {
@@ -19201,6 +19204,10 @@ BlockItemView = (function(_super) {
 
   BlockItemView.prototype.destroy = function() {
     return this.model.destroy();
+  };
+
+  BlockItemView.prototype.edit = function() {
+    return App.vent.trigger('edit', this.model);
   };
 
   return BlockItemView;
@@ -19376,7 +19383,8 @@ App.addRegions({
 });
 
 App.addInitializer(function(options) {
-  var blockCollection, blocksCompositeView, compositeModel, searchView;
+  var blockCollection, blocksCompositeView, body, compositeModel, searchView;
+  body = $('body');
   blockCollection = new BlocksCollection;
   blockCollection.fetch();
   compositeModel = new CompositeModel;
@@ -19390,7 +19398,18 @@ App.addInitializer(function(options) {
   App.mainRegion.show(blocksCompositeView.render());
   App.blocks = blocksCompositeView;
   App.vent.on('new', function() {
-    return console.log("Showing new form");
+    var form;
+    form = new BlockFormItemView({
+      model: new BlockModel
+    });
+    return body.append(form.render().el);
+  });
+  App.vent.on('edit', function(model) {
+    var form;
+    form = new BlockFormItemView({
+      model: model
+    });
+    return body.append(form.render().el);
   });
   App.vent.on('open', function(url) {
     return window.location = url;

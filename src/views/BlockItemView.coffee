@@ -9,6 +9,7 @@ class BlockItemView extends Backbone.Marionette.ItemView
 
 	events:
 		'click @ui.destroy': 'destroy'
+		'click @ui.edit': 'edit'
 
 	modelEvents:
 		"change:url": "render"
@@ -17,3 +18,6 @@ class BlockItemView extends Backbone.Marionette.ItemView
 
 	destroy: ->
 		@model.destroy()
+
+	edit: ->
+		App.vent.trigger 'edit', @model
