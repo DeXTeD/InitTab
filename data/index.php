@@ -1,7 +1,12 @@
 <?php
 
 $post = json_decode(file_get_contents('php://input'), true);
+
 $file = __DIR__.'/speedial.json';
+if(!file_exists($file))
+{
+	touch($file);
+}
 
 $id = null;
 if(array_key_exists('PATH_INFO', $_SERVER))
