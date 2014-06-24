@@ -21,9 +21,7 @@
     "grid-list": "~0.1.0",
     "jqueryui": "~1.10.4",
     "gridster": "~0.5.1",
-    "string_score": "~0.1.20"
-  },
-  "devDependencies": {
+    "string_score": "~0.1.20",
     "backbone-fetch-cache": "~1.4.0"
   }
 }
