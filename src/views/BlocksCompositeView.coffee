@@ -1,16 +1,27 @@
 
 class BlocksCompositeView extends Backbone.Marionette.CompositeView
-	itemView: BlockItemView
 	template: "#BlocksComposite-template"
-	itemViewContainer: "[data-blocks]"
+	childView: BlockItemView
+	childViewContainer: "[data-blocks]"
 
 	initialize: ->
 		@listenTo App.vent, 'enter', @openBest
 		@listenTo @model, 'change:query', _.debounce (model, query) ->
 			if query
+				best =
+					model: null
+					score: null
+
 				@collection.isSearching(yes).each (model) ->
-					model.search query
+					results = model.search query
+					if not best.model or best.score < results.score
+						best.model = model
+						best.score = results.score
+
+				# zapisujemy najlepszy klocek
+				@collection.highlight = best.model
 			else
+				@collection.highlight = false
 				@collection.isSearching(no).each (model) ->
 					model.cleanSearch()
 
@@ -22,35 +33,21 @@ class BlocksCompositeView extends Backbone.Marionette.CompositeView
 			@collection.sort()
 			@render()
 
-		# Podmieniamy model i kolekcje EmptyViewa
-		@on 'before:item:added', (view) ->
-			if view instanceof BlocksEmptyView
-				view.model = @model
-				view.collection = @collection
-
-		# @on 'after:item:added', ->
-		# 	console.log "sort"
-		# 	@collection.sort()
-		# 	# @render()
+		@collection.sort()
 
 
 	getEmptyView: ->
 		BlocksEmptyView
 
-	# https://github.com/marionettejs/backbone.marionette/wiki/Adding-support-for-sorted-collections
-	appendHtml: (collectionView, itemView, index) ->
-		if (collectionView.isBuffering)
-			collectionView._bufferedChildren.push itemView
+	isEmpty: ->
+		@collection.count() < 1
 
-		childrenContainer = if collectionView.isBuffering then $(collectionView.elBuffer) else this.getItemViewContainer(collectionView)
-		children = childrenContainer.children()
-		if (children.size() <= index)
-			childrenContainer.append itemView.el
-		else
-			children.eq(index).before itemView.el
+	emptyViewOptions: ->
+		collection: @collection
+		model: @model
 
 
-	addItemView: (item, view, index) ->
+	addChild: (item, view, index) ->
 		return if item.get('visible') is no
 		super
 
@@ -61,9 +58,3 @@ class BlocksCompositeView extends Backbone.Marionette.CompositeView
 		else
 			best = @collection.getBest()
 			App.vent.trigger 'open', best.get('url')
-
-
-	isEmpty: ->
-		@collection.count() < 1
-
-

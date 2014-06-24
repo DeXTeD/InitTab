@@ -10,12 +10,13 @@ class BlockFormItemView extends Backbone.Marionette.ItemView
 
 	events:
 		'submit @ui.form': 'submit'
-		'click @ui.close': 'close'
+		'click @ui.close': 'destroy'
 
-	submit: ->
+	submit: (event) ->
+		event.preventDefault()
 		App.blocks.collection.add @model
 		data = {}
 		_.each @ui.form.serializeArray(), (input) ->
 			data[input.name] = input.value
 		@model.save data
-		@close()
+		@destroy()

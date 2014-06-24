@@ -16,8 +16,19 @@ class BlockItemView extends Backbone.Marionette.ItemView
 		"change:title": "render"
 		"change:thumbnail": "render"
 
-	destroy: ->
-		@model.destroy()
+	# destroy: ->
+	# 	@model.destroy()
 
 	edit: ->
 		App.vent.trigger 'edit', @model
+
+	onRender: ->
+		isHighlight = @model.cid is @model.collection.highlight?.cid
+		# if isHighlight
+		# 	@className = "block block--highlight"
+		# else
+		# 	@className = "block"
+		# console.log "onBeforeRender", isHighlight, @className
+		# @model.set highlight: isHighlight
+		if isHighlight
+			@$el.addClass "block--highlight"

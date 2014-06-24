@@ -31,7 +31,8 @@
 
 	<script id="BlockItem-template" type="text/html">
 		<% if(!thumbnail) thumbnail = 'http://9px.pl/300x100/FFF/444/'+title %>
-		<a href="<%= url %>" class="block-image" style="background-image: url('<%- thumbnail %>');">
+		<a href="<%= url %>" class="block-image">
+			<img src="<%- thumbnail %>" alt="<%- title %>">
 			<span class="block-title">
 				<%- title %>
 			</span>

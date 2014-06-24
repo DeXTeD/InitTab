@@ -5,10 +5,10 @@ class BlocksCollection extends Backbone.Collection
 
 	_searching: no
 	comparator: (model) ->
-		if @searching
-			return -model.get('score')
+		if @_searching
+			return - Math.round model.get('score')*100
 		else
-			return model.get('position')
+			return (model.get('position')+1)*1000+model.get('id')
 
 
 	getBest: ->
