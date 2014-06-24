@@ -23,6 +23,7 @@ var paths = {
     // 'bower_components/jqueryui/ui/jquery.ui.draggable.js',
     'bower_components/underscore/underscore.js',
     'bower_components/backbone/backbone.js',
+    'bower_components/backbone-fetch-cache/backbone.fetch-cache.js',
     'bower_components/backbone.marionette/lib/backbone.marionette.js',
     // 'bower_components/grid-list/src/gridList.js',
     // 'bower_components/grid-list/src/jquery.gridList.js',

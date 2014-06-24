@@ -11,7 +11,8 @@ App.addInitializer (options) ->
 	body = $ 'body'
 
 	blockCollection = new BlocksCollection
-	blockCollection.fetch()
+	blockCollection.fetch
+		prefill: yes
 
 	compositeModel = new CompositeModel
 
