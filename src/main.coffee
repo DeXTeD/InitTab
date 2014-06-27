@@ -9,10 +9,12 @@ App.addRegions
 App.addInitializer (options) ->
 
 	body = $ 'body'
+	key = body.data 'key'
 
-	blockCollection = new BlocksCollection
+	blockCollection = new BlocksCollection key: key
 	blockCollection.fetch
 		prefill: yes
+		expires: false
 
 	compositeModel = new CompositeModel
 

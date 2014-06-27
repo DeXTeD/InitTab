@@ -1,7 +1,10 @@
 
 class BlocksCollection extends Backbone.Collection
 	model: BlockModel
-	url: 'data/index.php'
+	url: 'data/index.php/'
+
+	initialize: (config) ->
+		@url+= config.key
 
 	_searching: no
 	comparator: (model) ->

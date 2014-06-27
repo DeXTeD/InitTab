@@ -1,16 +1,19 @@
 <?php
 $post = json_decode(file_get_contents('php://input'), true);
 
-$file = __DIR__.'/speedial.json';
+$get = explode('/', trim($_SERVER['PATH_INFO'], '/'));
+
+$key = md5($get[0]?:'none');
+$file = __DIR__."/$key.json";
 if(!file_exists($file))
 {
-	touch($file);
+	file_put_contents($file, json_encode([]));
 }
 
 $id = null;
-if(array_key_exists('PATH_INFO', $_SERVER))
+if(isset($get[1]))
 {
-	$id = trim($_SERVER['PATH_INFO'], '/');
+	$id = +$get[1];
 }
 
 $method = $_SERVER['REQUEST_METHOD'];

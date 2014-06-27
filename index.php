@@ -21,7 +21,7 @@
 	<meta name="msapplication-TileImage" content="images/favicons/mstile-144x144.png">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body>
+<body data-key="<?php echo htmlentities(trim($_SERVER["PATH_INFO"], '/'), ENT_QUOTES) ?>">
 
 	<div class="nav" id="search">
 		<button class="nav-add" type="button" data-add>+</button>
@@ -40,7 +40,8 @@
 			<% } %>
 			Szukaj w Google <strong>"<%- model.query %>"</strong>
 		<% } else { %>
-			...
+			Nic tu nie ma... <br>
+			Tam u góry po lewej jest taki fajny plusik :)
 		<% } %>
 	</script>
 

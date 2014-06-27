@@ -19764,7 +19764,11 @@ BlocksCollection = (function(_super) {
 
   BlocksCollection.prototype.model = BlockModel;
 
-  BlocksCollection.prototype.url = 'data/index.php';
+  BlocksCollection.prototype.url = 'data/index.php/';
+
+  BlocksCollection.prototype.initialize = function(config) {
+    return this.url += config.key;
+  };
 
   BlocksCollection.prototype._searching = false;
 
@@ -20078,11 +20082,15 @@ App.addRegions({
 });
 
 App.addInitializer(function(options) {
-  var blockCollection, blocksCompositeView, body, compositeModel, searchView;
+  var blockCollection, blocksCompositeView, body, compositeModel, key, searchView;
   body = $('body');
-  blockCollection = new BlocksCollection;
+  key = body.data('key');
+  blockCollection = new BlocksCollection({
+    key: key
+  });
   blockCollection.fetch({
-    prefill: true
+    prefill: true,
+    expires: false
   });
   compositeModel = new CompositeModel;
   searchView = new NavItemView({
