@@ -8,7 +8,7 @@ class BlockItemView extends Backbone.Marionette.ItemView
 		edit: "[data-edit]"
 
 	events:
-		'click @ui.destroy': 'destroy'
+		'click @ui.destroy': 'delete'
 		'click @ui.edit': 'edit'
 
 	modelEvents:
@@ -16,8 +16,8 @@ class BlockItemView extends Backbone.Marionette.ItemView
 		"change:title": "render"
 		"change:thumbnail": "render"
 
-	# destroy: ->
-	# 	@model.destroy()
+	delete: ->
+		@model.destroy()
 
 	edit: ->
 		App.vent.trigger 'edit', @model

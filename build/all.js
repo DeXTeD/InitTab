@@ -19869,7 +19869,7 @@ BlockItemView = (function(_super) {
   };
 
   BlockItemView.prototype.events = {
-    'click @ui.destroy': 'destroy',
+    'click @ui.destroy': 'delete',
     'click @ui.edit': 'edit'
   };
 
@@ -19877,6 +19877,10 @@ BlockItemView = (function(_super) {
     "change:url": "render",
     "change:title": "render",
     "change:thumbnail": "render"
+  };
+
+  BlockItemView.prototype["delete"] = function() {
+    return this.model.destroy();
   };
 
   BlockItemView.prototype.edit = function() {
