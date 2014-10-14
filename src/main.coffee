@@ -71,9 +71,6 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 	'$routeProvider',
 	($routeProvider) ->
 		$routeProvider
-			.when '/',
-				controller: 'GridController'
-				templateUrl: 'grid.html'
 
 			.when '/edit/:id',
 				controller: 'EditController'
@@ -87,7 +84,9 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 				controller: 'CreateController'
 				templateUrl: 'detail.html'
 
-			.otherwise redirectTo: '/'
+			.otherwise
+				controller: 'GridController'
+				templateUrl: 'grid.html'
 	]
 
 

@@ -25765,10 +25765,7 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
   };
 }).config([
   '$routeProvider', function($routeProvider) {
-    return $routeProvider.when('/', {
-      controller: 'GridController',
-      templateUrl: 'grid.html'
-    }).when('/edit/:id', {
+    return $routeProvider.when('/edit/:id', {
       controller: 'EditController',
       templateUrl: 'detail.html'
     }).when('/remove/:id', {
@@ -25778,7 +25775,8 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
       controller: 'CreateController',
       templateUrl: 'detail.html'
     }).otherwise({
-      redirectTo: '/'
+      controller: 'GridController',
+      templateUrl: 'grid.html'
     });
   }
 ]).controller('GridController', [
