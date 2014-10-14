@@ -1,0 +1,37 @@
+{
+  "name": "angular-sortable-view",
+  "version": "0.0.10",
+  "homepage": "http://kamilkp.github.io/angular-sortable-view/",
+  "authors": [
+    "Kamil Pękala <kamilkp@gmail.com>"
+  ],
+  "description": "Fully declarative (multi)sortable for AngularJS",
+  "main": "angular-sortable-view.js",
+  "keywords": [
+    "angularjs",
+    "sortable",
+    "ui-sortable",
+    "sort",
+    "sorting",
+    "declarative"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "lib"
+  ],
+  "_release": "0.0.10",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.10",
+    "commit": "e1da07bf81c92028429a63b6038687d2d1d66c0e"
+  },
+  "_source": "git://github.com/kamilkp/angular-sortable-view.git",
+  "_target": "~0.0.10",
+  "_originalSource": "angular-sortable-view",
+  "_direct": true
+}

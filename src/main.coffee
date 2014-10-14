@@ -1,48 +1,143 @@
-App = new Backbone.Marionette.Application()
+angular.module 'App', ['ngRoute', 'angular-sortable-view']
 
-window.App = App
 
-App.addRegions
-	mainRegion: "#main"
-	searchRegion: "#search"
+.factory 'userData', ->
+	window.user
 
-App.addInitializer (options) ->
 
-	body = $ 'body'
-	key = body.data 'key'
+.factory 'gridData', [
+	'$http', 'userData', '$q',
+	($http,   userData,   $q) ->
+		# deferred = $q.defer()
+		# resolve = (data, status, headers, config) -> deferred.resolve data
+		url = (action = '') ->
+			action = '&action='+action if action
+			'db.php?user='+userData.key+action
 
-	blockCollection = new BlocksCollection key: key
-	blockCollection.fetch
-		prefill: yes
-		expires: false
+		cache = null
 
-	compositeModel = new CompositeModel
 
-	searchView = new NavItemView
-		model: compositeModel
+		# promise = deferred.promise
 
-	blocksCompositeView = new BlocksCompositeView
-		model: compositeModel
-		collection: blockCollection
+		# console.log 'promise', promise
 
-	App.mainRegion.show blocksCompositeView.render()
-	App.blocks = blocksCompositeView
+		get: ->
+			if cache
+				return success: (cb) ->
+					cb cache, 'cache'
 
-	App.vent.on 'new', ->
-		form = new BlockFormItemView
-			model: new BlockModel
-		body.append form.render().el
+			$http.get url()
+			.success (data, status, headers, config) ->
+				cache = data
 
-	App.vent.on 'edit', (model) ->
-		form = new BlockFormItemView
-			model: model
-		body.append form.render().el
+		set: (data) ->
+			cache = data
 
-	App.vent.on 'open', (url) ->
-		window.location = url
+		sort: (ids) ->
+			$http.post url('sort'), {ids}
+			.success (data, status, headers, config) ->
+				cache = data
 
-	App.vent.on 'search', (query) ->
-		window.location = 'https://www.google.com/search?q='+encodeURIComponent(query)
+		create: (block) ->
+			$http.post url('create'), block
+			.success (data, status, headers, config) ->
+				cache = data
 
-Backbone.emulateHTTP = yes
-App.start()
+		remove: (block) ->
+			$http.post url('remove'), block
+			.success (data, status, headers, config) ->
+				cache = data
+
+		edit: (block) ->
+			$http.post url('edit'), block
+			.success (data, status, headers, config) ->
+				cache = data
+	]
+
+
+.filter 'find', ->
+	(items, query) ->
+		return items unless query
+		_ items
+		.sortBy (item) ->
+			item.score = item.title.score query
+			-item.score
+
+		.filter (item) ->
+			item.score > 0.3
+
+
+.config [
+	'$routeProvider',
+	($routeProvider) ->
+		$routeProvider
+			.when '/',
+				controller: 'GridController'
+				templateUrl: 'grid.html'
+
+			.when '/edit/:id',
+				controller: 'EditController'
+				templateUrl: 'detail.html'
+
+			.when '/remove/:id',
+				controller: 'RemoveController'
+				templateUrl: 'remove.html'
+
+			.when '/new',
+				controller: 'CreateController'
+				templateUrl: 'detail.html'
+
+			.otherwise redirectTo: '/'
+	]
+
+
+.controller 'GridController', [
+	'$scope', '$http', 'gridData', 'userData',
+	($scope,   $http,   gridData,   userData) ->
+		console.log "gridData", gridData
+		gridData.get().success (list) ->
+			$scope.list = list
+
+		$scope.onSort = ($item, $partFrom, $partTo, $indexFrom, $indexTo) ->
+			ids = _.pluck $partTo, 'id'
+			gridData.sort ids
+	]
+
+
+.controller 'CreateController', [
+	'$scope', '$http', '$location', 'gridData',
+	($scope,   $http,   $location,   gridData) ->
+		$scope.block = {}
+		$scope.save = ->
+			gridData.create $scope.block
+			.success -> $location.url '/'
+	]
+
+
+.controller 'EditController', [
+	'$scope', '$http', '$routeParams', '$location', 'gridData',
+	($scope,   $http,   $routeParams,   $location,   gridData) ->
+		gridData.get().success (list) ->
+			$scope.list = list
+
+			id = $routeParams.id
+			$scope.block = _.findWhere $scope.list, id: +id
+
+		$scope.save = ->
+			gridData.edit $scope.block
+			.success -> $location.url '/'
+	]
+
+
+.controller 'RemoveController', [
+	'$scope', '$http', '$routeParams', '$location', 'gridData',
+	($scope,   $http,   $routeParams,   $location,   gridData) ->
+		gridData.get().success (list) ->
+			$scope.list = list
+			id = $routeParams.id
+			$scope.block = _.findWhere $scope.list, id: +id
+
+		$scope.remove = ->
+			gridData.remove $scope.block
+			.success -> $location.url '/'
+	]

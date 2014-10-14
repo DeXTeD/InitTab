@@ -1,9 +1,13 @@
 {
-  "name": "InitTab",
-  "version": "0.0.0",
+  "name": "NgInitTab",
+  "version": "1.0.0",
   "description": "",
-  "main": "main.js",
-  "dependencies": {},
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
   "devDependencies": {
     "gulp": "~3.6.2",
     "gulp-stylus": "~1.0.0",
@@ -21,10 +25,5 @@
     "gulp-rename": "~1.2.0",
     "gulp-less": "~1.2.3",
     "gulp-if": "~1.2.1"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "MIT"
+  }
 }

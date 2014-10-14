@@ -1,11 +1,14 @@
 {
-  "name": "InitTab",
+  "name": "NgInitTab",
   "version": "0.0.0",
   "authors": [
     "DeXTeD <dexted.xt@gmail.com>"
   ],
-  "description": "New tab start page",
+  "moduleType": [
+    "amd"
+  ],
   "license": "MIT",
+  "private": true,
   "ignore": [
     "**/.*",
     "node_modules",
@@ -14,14 +17,12 @@
     "tests"
   ],
   "dependencies": {
-    "backbone.marionette": "~2.0.0",
-    "backbone": "~1.1.2",
-    "jquery": "~2.1.1",
-    "underscore": "~1.6.0",
-    "grid-list": "~0.1.0",
-    "jqueryui": "~1.10.4",
-    "gridster": "~0.5.1",
+    "angular-sortable-view": "~0.0.10",
+    "angular": "~1.2.26",
     "string_score": "~0.1.20",
-    "backbone-fetch-cache": "~1.4.0"
+    "angular-route": "~1.2.26",
+    "angular-resource": "~1.2.26",
+    "angular-animate": "~1.2.26",
+    "underscore": "~1.7.0"
   }
 }
