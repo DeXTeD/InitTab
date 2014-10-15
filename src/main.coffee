@@ -5,15 +5,16 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 	window.user
 
 .factory 'keyCodes', ->
-	(name) ->
+	(code) ->
 		keys =
 			13: 'enter'
+			27: 'esc'
 			32: 'space'
 			37: 'left'
 			38: 'up'
 			39: 'right'
 			40: 'down'
-		keys[name]
+		keys[code]
 
 .factory 'gridData', [
 	'$http', 'userData', '$q',
@@ -122,6 +123,9 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 			toOpen = $scope.selected or $scope.items[0]
 			window.location = toOpen.url
 
+		clear = ->
+			$scope.search $scope.q = ''
+
 		$scope.onSort = ($item, $partFrom, $partTo, $indexFrom, $indexTo) ->
 			ids = _.pluck $partTo, 'id'
 			gridData.sort ids
@@ -133,6 +137,7 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 		$scope.keyup = ($event) ->
 			key = keyCodes $event.keyCode
 			open()			if key is 'enter'
+			clear()			if key is 'esc'
 			selectNext()	if key in ['right', 'down']
 			selectPrev()	if key in ['left', 'up']
 	]

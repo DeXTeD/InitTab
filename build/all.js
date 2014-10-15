@@ -25699,17 +25699,18 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', function() {
   return window.user;
 }).factory('keyCodes', function() {
-  return function(name) {
+  return function(code) {
     var keys;
     keys = {
       13: 'enter',
+      27: 'esc',
       32: 'space',
       37: 'left',
       38: 'up',
       39: 'right',
       40: 'down'
     };
-    return keys[name];
+    return keys[code];
   };
 }).factory('gridData', [
   '$http', 'userData', '$q', function($http, userData, $q) {
@@ -25794,7 +25795,7 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
   }
 ]).controller('GridController', [
   '$scope', '$http', '$filter', 'gridData', 'keyCodes', 'userData', function($scope, $http, $filter, gridData, keyCodes, userData) {
-    var allItems, open, select, selectNext, selectPrev;
+    var allItems, clear, open, select, selectNext, selectPrev;
     allItems = [];
     gridData.get().success(function(items) {
       $scope.items = items;
@@ -25827,6 +25828,9 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
       toOpen = $scope.selected || $scope.items[0];
       return window.location = toOpen.url;
     };
+    clear = function() {
+      return $scope.search($scope.q = '');
+    };
     $scope.onSort = function($item, $partFrom, $partTo, $indexFrom, $indexTo) {
       var ids;
       ids = _.pluck($partTo, 'id');
@@ -25841,6 +25845,9 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
       key = keyCodes($event.keyCode);
       if (key === 'enter') {
         open();
+      }
+      if (key === 'esc') {
+        clear();
       }
       if (key === 'right' || key === 'down') {
         selectNext();
