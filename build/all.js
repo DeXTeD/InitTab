@@ -25698,6 +25698,19 @@ function ngViewFillContentFactory($compile, $controller, $route) {
 })(window, window.angular);
 angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', function() {
   return window.user;
+}).factory('keyCodes', function() {
+  return function(name) {
+    var keys;
+    keys = {
+      13: 'enter',
+      32: 'space',
+      37: 'left',
+      38: 'up',
+      39: 'right',
+      40: 'down'
+    };
+    return keys[name];
+  };
 }).factory('gridData', [
   '$http', 'userData', '$q', function($http, userData, $q) {
     var cache, url;
@@ -25780,15 +25793,61 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
     });
   }
 ]).controller('GridController', [
-  '$scope', '$http', 'gridData', 'userData', function($scope, $http, gridData, userData) {
-    console.log("gridData", gridData);
-    gridData.get().success(function(list) {
-      return $scope.list = list;
+  '$scope', '$http', '$filter', 'gridData', 'keyCodes', 'userData', function($scope, $http, $filter, gridData, keyCodes, userData) {
+    var allItems, open, select, selectNext, selectPrev;
+    allItems = [];
+    gridData.get().success(function(items) {
+      $scope.items = items;
+      return allItems = items;
     });
-    return $scope.onSort = function($item, $partFrom, $partTo, $indexFrom, $indexTo) {
+    select = function(item) {
+      if (!item) {
+        return false;
+      }
+      if ($scope.selected) {
+        $scope.selected.selected = false;
+      }
+      $scope.selected = item;
+      return $scope.selected.selected = true;
+    };
+    selectNext = function() {
+      var index;
+      index = $scope.items.indexOf($scope.selected);
+      console.log('index', index);
+      return select($scope.items[++index]);
+    };
+    selectPrev = function() {
+      var index;
+      index = $scope.items.indexOf($scope.selected);
+      console.log('index', index);
+      return select($scope.items[--index]);
+    };
+    open = function() {
+      var toOpen;
+      toOpen = $scope.selected || $scope.items[0];
+      return window.location = toOpen.url;
+    };
+    $scope.onSort = function($item, $partFrom, $partTo, $indexFrom, $indexTo) {
       var ids;
       ids = _.pluck($partTo, 'id');
       return gridData.sort(ids);
+    };
+    $scope.search = function(q) {
+      $scope.items = $filter('find')(allItems, q);
+      return select($scope.items[0]);
+    };
+    return $scope.keyup = function($event) {
+      var key;
+      key = keyCodes($event.keyCode);
+      if (key === 'enter') {
+        open();
+      }
+      if (key === 'right' || key === 'down') {
+        selectNext();
+      }
+      if (key === 'left' || key === 'up') {
+        return selectPrev();
+      }
     };
   }
 ]).controller('CreateController', [
@@ -25802,11 +25861,11 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
   }
 ]).controller('EditController', [
   '$scope', '$http', '$routeParams', '$location', 'gridData', function($scope, $http, $routeParams, $location, gridData) {
-    gridData.get().success(function(list) {
+    gridData.get().success(function(items) {
       var id;
-      $scope.list = list;
+      $scope.items = items;
       id = $routeParams.id;
-      return $scope.block = _.findWhere($scope.list, {
+      return $scope.block = _.findWhere($scope.items, {
         id: +id
       });
     });
@@ -25818,11 +25877,11 @@ angular.module('App', ['ngRoute', 'angular-sortable-view']).factory('userData', 
   }
 ]).controller('RemoveController', [
   '$scope', '$http', '$routeParams', '$location', 'gridData', function($scope, $http, $routeParams, $location, gridData) {
-    gridData.get().success(function(list) {
+    gridData.get().success(function(items) {
       var id;
-      $scope.list = list;
+      $scope.items = items;
       id = $routeParams.id;
-      return $scope.block = _.findWhere($scope.list, {
+      return $scope.block = _.findWhere($scope.items, {
         id: +id
       });
     });

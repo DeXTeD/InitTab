@@ -26,18 +26,21 @@
 	<script type="text/ng-template" id="grid.html">
 		<div class="nav">
 			<a href="#/new" class="nav-add">+</a>
-			<input type="text" class="nav-search" tabindex="1" ng-model="q">
+			<input type="text" class="nav-search" tabindex="1" ng-model="q" ng-change="search(q)" ng-keyup="keyup($event)">
 		</div>
-		<ul class="blocksWrapper" sv-root sv-part="list" sv-on-sort="onSort($item, $partFrom, $partTo, $indexFrom, $indexTo)">
-			<li ng-repeat="l in list | find:q" sv-element class="block">
-				<a href="{{l.url}}" class="block-image">
-					<img src="{{l.thumbnail}}">
+		<ul class="blocksWrapper"
+			sv-root sv-part="items"
+			sv-on-sort="onSort($item, $partFrom, $partTo, $indexFrom, $indexTo)"
+		>
+			<li class="block" ng-class="{'block--highlight':item.selected}" ng-repeat="item in items" sv-element>
+				<a href="{{item.url}}" class="block-image">
+					<img src="{{item.thumbnail}}">
 					<span class="block-title">
-						{{l.title}}
+						{{item.title}}
 					</span>
 				</a>
-				<a href="#/remove/{{l.id}}" class="block-destroy" type="button">&times;</a>
-				<a href="#/edit/{{l.id}}" class="block-edit" type="button">&bull;</a>
+				<a href="#/remove/{{item.id}}" class="block-destroy" type="button">&times;</a>
+				<a href="#/edit/{{item.id}}" class="block-edit" type="button">&bull;</a>
 			</li>
 		</ul>
 	</script>

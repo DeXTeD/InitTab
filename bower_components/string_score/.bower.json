@@ -10,6 +10,5 @@
   },
   "_source": "git://github.com/saschagehlich/string_score.git",
   "_target": "~0.1.20",
-  "_originalSource": "string_score",
-  "_direct": true
+  "_originalSource": "string_score"
 }

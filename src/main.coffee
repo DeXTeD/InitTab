@@ -4,22 +4,25 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 .factory 'userData', ->
 	window.user
 
+.factory 'keyCodes', ->
+	(name) ->
+		keys =
+			13: 'enter'
+			32: 'space'
+			37: 'left'
+			38: 'up'
+			39: 'right'
+			40: 'down'
+		keys[name]
 
 .factory 'gridData', [
 	'$http', 'userData', '$q',
 	($http,   userData,   $q) ->
-		# deferred = $q.defer()
-		# resolve = (data, status, headers, config) -> deferred.resolve data
 		url = (action = '') ->
 			action = '&action='+action if action
 			'db.php?user='+userData.key+action
 
 		cache = null
-
-
-		# promise = deferred.promise
-
-		# console.log 'promise', promise
 
 		get: ->
 			if cache
@@ -91,15 +94,47 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 
 
 .controller 'GridController', [
-	'$scope', '$http', 'gridData', 'userData',
-	($scope,   $http,   gridData,   userData) ->
-		console.log "gridData", gridData
-		gridData.get().success (list) ->
-			$scope.list = list
+	'$scope', '$http', '$filter', 'gridData', 'keyCodes', 'userData',
+	($scope,   $http,   $filter,   gridData,   keyCodes,   userData) ->
+		allItems = []
+		gridData.get().success (items) ->
+			$scope.items = items
+			allItems = items
+
+		select = (item) ->
+			return false unless item
+			if $scope.selected
+				$scope.selected.selected = no
+			$scope.selected = item
+			$scope.selected.selected = yes
+
+		selectNext = ->
+			index = $scope.items.indexOf $scope.selected
+			console.log 'index', index
+			select $scope.items[++index]
+
+		selectPrev = ->
+			index = $scope.items.indexOf $scope.selected
+			console.log 'index', index
+			select $scope.items[--index]
+
+		open = ->
+			toOpen = $scope.selected or $scope.items[0]
+			window.location = toOpen.url
 
 		$scope.onSort = ($item, $partFrom, $partTo, $indexFrom, $indexTo) ->
 			ids = _.pluck $partTo, 'id'
 			gridData.sort ids
+
+		$scope.search = (q) ->
+			$scope.items = $filter('find') allItems, q
+			select $scope.items[0]
+
+		$scope.keyup = ($event) ->
+			key = keyCodes $event.keyCode
+			open()			if key is 'enter'
+			selectNext()	if key in ['right', 'down']
+			selectPrev()	if key in ['left', 'up']
 	]
 
 
@@ -116,11 +151,11 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 .controller 'EditController', [
 	'$scope', '$http', '$routeParams', '$location', 'gridData',
 	($scope,   $http,   $routeParams,   $location,   gridData) ->
-		gridData.get().success (list) ->
-			$scope.list = list
+		gridData.get().success (items) ->
+			$scope.items = items
 
 			id = $routeParams.id
-			$scope.block = _.findWhere $scope.list, id: +id
+			$scope.block = _.findWhere $scope.items, id: +id
 
 		$scope.save = ->
 			gridData.edit $scope.block
@@ -131,10 +166,10 @@ angular.module 'App', ['ngRoute', 'angular-sortable-view']
 .controller 'RemoveController', [
 	'$scope', '$http', '$routeParams', '$location', 'gridData',
 	($scope,   $http,   $routeParams,   $location,   gridData) ->
-		gridData.get().success (list) ->
-			$scope.list = list
+		gridData.get().success (items) ->
+			$scope.items = items
 			id = $routeParams.id
-			$scope.block = _.findWhere $scope.list, id: +id
+			$scope.block = _.findWhere $scope.items, id: +id
 
 		$scope.remove = ->
 			gridData.remove $scope.block
